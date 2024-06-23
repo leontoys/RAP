@@ -1,0 +1,248 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'TravelId'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'TravelId'
+annotate view ZC_RAP100_ATRAVLSV with
+{
+  @UI.facet: [ {
+    label: 'General Information', 
+    id: 'GeneralInfo', 
+    purpose: #STANDARD, 
+    position: 10 , 
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.identification: [ {
+    position: 10 , 
+    label: 'Travel ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    label: 'Travel ID'
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  TravelId;
+  
+  @UI.identification: [ {
+    position: 20 , 
+    label: 'Agency ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 , 
+    label: 'Agency ID'
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  AgencyId;
+  
+  @UI.identification: [ {
+    position: 30 , 
+    label: 'Customer ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 , 
+    label: 'Customer ID'
+  } ]
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  CustomerId;
+  
+  @UI.identification: [ {
+    position: 40 , 
+    label: 'Starting Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 , 
+    label: 'Starting Date'
+  } ]
+  @UI.selectionField: [ {
+    position: 40 
+  } ]
+  BeginDate;
+  
+  @UI.identification: [ {
+    position: 50 , 
+    label: 'End Date'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 , 
+    label: 'End Date'
+  } ]
+  @UI.selectionField: [ {
+    position: 50 
+  } ]
+  EndDate;
+  
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'Booking Fee'
+  } ]
+  @UI.lineItem: [ {
+    position: 60 , 
+    label: 'Booking Fee'
+  } ]
+  @UI.selectionField: [ {
+    position: 60 
+  } ]
+  BookingFee;
+  
+  @UI.identification: [ {
+    position: 70 , 
+    label: 'Total Price'
+  } ]
+  @UI.lineItem: [ {
+    position: 70 , 
+    label: 'Total Price'
+  } ]
+  @UI.selectionField: [ {
+    position: 70 
+  } ]
+  TotalPrice;
+  
+  @UI.identification: [ {
+    position: 80 , 
+    label: 'Currency Code'
+  } ]
+  @UI.lineItem: [ {
+    position: 80 , 
+    label: 'Currency Code'
+  } ]
+  @UI.selectionField: [ {
+    position: 80 
+  } ]
+  CurrencyCode;
+  
+  @UI.identification: [ {
+    position: 90 , 
+    label: 'Description'
+  } ]
+  @UI.lineItem: [ {
+    position: 90 , 
+    label: 'Description'
+  } ]
+  @UI.selectionField: [ {
+    position: 90 
+  } ]
+  Description;
+  
+  @UI.identification: [ {
+    position: 100 , 
+    label: 'Overall Status'
+  } ]
+  @UI.lineItem: [ {
+    position: 100 , 
+    label: 'Overall Status'
+  } ]
+  @UI.selectionField: [ {
+    position: 100 
+  } ]
+  OverallStatus;
+  
+  @UI.identification: [ {
+    position: 110 , 
+    label: 'Attachment'
+  } ]
+//  @UI.lineItem: [ {
+//    position: 110 , 
+//    label: 'Attachment'
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 110 
+//  } ]
+  Attachment;
+  
+  @UI.identification: [ {
+    position: 120 , 
+    label: 'Mime Type'
+  } ]
+  @UI.lineItem: [ {
+    position: 120 , 
+    label: 'Mime Type'
+  } ]
+  @UI.selectionField: [ {
+    position: 120 
+  } ]
+  MimeType;
+  
+  @UI.identification: [ {
+    position: 130 , 
+    label: 'Filename'
+  } ]
+  @UI.lineItem: [ {
+    position: 130 , 
+    label: 'Filename'
+  } ]
+  @UI.selectionField: [ {
+    position: 130 
+  } ]
+  FileName;
+  
+  @UI.identification: [ {
+    position: 140 , 
+    label: 'Created By'
+  } ]
+  @UI.lineItem: [ {
+    position: 140 , 
+    label: 'Created By'
+  } ]
+  @UI.selectionField: [ {
+    position: 140 
+  } ]
+  CreatedBy;
+  
+  @UI.identification: [ {
+    position: 150 , 
+    label: 'Created On'
+  } ]
+  @UI.lineItem: [ {
+    position: 150 , 
+    label: 'Created On'
+  } ]
+  @UI.selectionField: [ {
+    position: 150 
+  } ]
+  CreatedAt;
+  
+  @UI.identification: [ {
+    position: 160 , 
+    label: 'Changed By'
+  } ]
+  @UI.lineItem: [ {
+    position: 160 , 
+    label: 'Changed By'
+  } ]
+  @UI.selectionField: [ {
+    position: 160 
+  } ]
+  LocalLastChangedBy;
+  
+  @UI.identification: [ {
+    position: 170 , 
+    label: 'Changed On'
+  } ]
+  @UI.lineItem: [ {
+    position: 170 , 
+    label: 'Changed On'
+  } ]
+  @UI.selectionField: [ {
+    position: 170 
+  } ]
+  LocalLastChangedAt;
+  
+  @UI.identification: [ {
+    position: 180 , 
+    label: 'Changed On'
+  } ]
+  @UI.lineItem: [ {
+    position: 180 , 
+    label: 'Changed On'
+  } ]
+  @UI.selectionField: [ {
+    position: 180 
+  } ]
+  LastChangedAt;
+}

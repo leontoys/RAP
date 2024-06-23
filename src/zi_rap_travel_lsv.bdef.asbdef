@@ -1,0 +1,128 @@
+managed; // implementation in class zbp_i_rap_travel_lsv unique;
+//strict ( 2 );
+with draft;
+
+define behavior for ZI_RAP_Travel_lsv alias Travel
+implementation in class zbp_i_rap_travel_lsv unique
+persistent table zrap_atrav_lsv
+draft table zrap_dtrav_lsv
+//lock master
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+//  association _Booking { create; }
+  association _Booking { create; with draft; }
+
+
+  field ( numbering : managed, readonly ) TravelUUID;
+
+  //Add static field-control by setting the fields TravelID, TotalPrice and TravelStatus to readonly.
+  //Do the same for the administrative fields LastChangedAt, LastChangedBy, CreatedAt, CreatedBy and LocalLastChangedAt.
+  field ( readonly ) TravelID, TotalPrice, TravelStatus;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+
+  //  Please note: The implementation of a corresponding validation is still required.
+  field ( mandatory ) AgencyID, CustomerID;
+
+  //Define the two actions acceptTravel and rejectTravel with dynamic feature control
+  // for approving and rejecting travels. Both return  $self with cardinality 1 as the result.
+  // $self means that the instance of the same type is returned on which the operation is performed.
+  action ( features : instance ) acceptTravel result [1] $self;
+  action ( features : instance ) rejectTravel result [1] $self;
+  //Define the internal action recalcTotalPrice for the re-calculation of the total price.
+  internal action recalcTotalPrice;
+
+  //The setInitialStatus determination is used to default the status to N
+  //whenever a new instance is created. It uses the create trigger on Modify.
+  determination setInitialStatus on modify { create; }
+  //The calculateTotalPrice determination is used to update the total price
+  //whenever the BookingFee or CurrencyCode is changed.
+  determination calculateTotalPrice on modify { field BookingFee, CurrencyCode; }
+  //The calculateTravelID is used to determine the TravelID when a new instance is created. It is executed on save.
+  //Please note that the calculation of the TravelID is only used for demonstration purposes.
+  //The primary key of the Travel business object is still the TravelUUID.
+  determination calculateTravelID on save { create; }
+
+  //Define 3 validations to validate the input of the fields AgencyID, CustomerID, BeginDate and EndDate. They shall be all triggered on save.
+  validation validateAgency on save { field AgencyID; create; }
+  validation validateCustomer on save { field CustomerID; create; }
+  validation validateDates on save { field BeginDate, EndDate; create; }
+
+// When a draft instance is going to be activated, the SAP Fiori elements UI calls
+// the draft determine action prepare in the backend. This call takes place in
+// a separate OData changeset to allow for saving the state messages even in case the activation fails
+// due to failing validations.
+//In order to execute the validations during prepare, you need to assign them
+//to the draft determine action prepare trigger.
+   draft determine action Prepare  {
+    validation validateAgency;
+    validation validateCustomer;
+    validation validateDates;
+  }
+
+
+  mapping for zrap_atrav_lsv
+    {
+      TravelUUID         = travel_uuid;
+      TravelID           = travel_id;
+      AgencyID           = agency_id;
+      CustomerID         = customer_id;
+      BeginDate          = begin_date;
+      EndDate            = end_date;
+      BookingFee         = booking_fee;
+      TotalPrice         = total_price;
+      CurrencyCode       = currency_code;
+      Description        = description;
+      TravelStatus       = overall_status;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}
+
+define behavior for ZI_RAP_Booking_LSV alias Booking
+implementation in class zbp_i_rap_booking_lsv unique
+persistent table zrap_abook_lsv
+draft table zrap_dbook_lsv
+lock dependent by _Travel
+authorization dependent by _Travel
+etag master LocalLastChangedAt
+{
+//  association _Travel;
+  association _Travel { with draft; }
+
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) BookingUUID;
+//  field ( readonly ) TravelUUID;
+
+  field ( readonly ) TravelUUID, BookingID;
+  field ( readonly ) CreatedBy, LastChangedBy, LocalLastChangedAt;
+
+  determination calculateBookingID on modify { create; }
+  determination calculateTotalPrice on modify { field FlightPrice, CurrencyCode; }
+
+  mapping for zrap_abook_lsv
+    {
+      BookingUUID        = booking_uuid;
+      TravelUUID         = travel_uuid;
+      BookingID          = booking_id;
+      BookingDate        = booking_date;
+      CustomerID         = customer_id;
+      CarrierID          = carrier_id;
+      ConnectionID       = connection_id;
+      FlightDate         = flight_date;
+      FlightPrice        = flight_price;
+      CurrencyCode       = currency_code;
+      CreatedBy          = created_by;
+      LastChangedBy      = last_changed_by;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}
